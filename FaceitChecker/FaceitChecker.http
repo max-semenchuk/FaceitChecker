@@ -1,0 +1,6 @@
+@FaceitChecker_HostAddress = http://localhost:5231
+
+GET {{FaceitChecker_HostAddress}}/players/profile?name=Maryak_Papay
+Accept: application/json
+
+###

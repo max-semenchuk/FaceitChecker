@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="FaceitChecker/FaceitChecker.csproj" />
+  <Project Path="Services/Services.csproj" />
+</Solution>
