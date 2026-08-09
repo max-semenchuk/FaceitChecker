@@ -35,6 +35,11 @@ namespace FaceitChecker.Controllers
         public async Task<IActionResult> GetPlayerStats(string player_id, string game)
         {
             var response = await _faceitApiClient.RequestPlayerStats(player_id, game);
+            
+            if (response == null) 
+            {
+                return NotFound();
+            }
             return Ok(response);
         }
 
