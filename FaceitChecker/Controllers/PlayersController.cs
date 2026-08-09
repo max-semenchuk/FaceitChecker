@@ -21,6 +21,12 @@ namespace FaceitChecker.Controllers
         public async Task<IActionResult>  GetPlayerProfile(string name)
         {
             var response = await _faceitApiClient.RequestPlayerProfile(name);
+
+            if (response == null) 
+            {
+                return NotFound();
+            }
+            
             return Ok(response);
         }
 

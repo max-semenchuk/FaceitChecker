@@ -20,11 +20,21 @@ public class FaceitApiClient : IFaceitApiClient
 
     public async Task<Player?> RequestPlayerProfile(string Name)
     {
-        return await httpClient.GetFromJsonAsync<Player?>($"https://open.faceit.com/data/v4/players?nickname={Name}");
+        var response = await httpClient.GetAsync($"https://open.faceit.com/data/v4/players?nickname={Name}");
+        if (response.IsSuccessStatusCode)
+        { return await response.Content.ReadFromJsonAsync<Player>(); }
+
+        return null;
     }
 
     public async Task<Stats?> RequestPlayerStats(string PlayerId, string Game)
     {
-        return await httpClient.GetFromJsonAsync<Stats?>($"https://open.faceit.com/data/v4/players/{PlayerId}/games/{Game}/stats");
+        var response = await httpClient.GetAsync($"https://open.faceit.com/data/v4/players/{PlayerId}/games/{Game}/stats");
+        if (response.IsSuccessStatusCode) 
+        {
+            return await response.Content.ReadFromJsonAsync<Stats>();    
+        }
+        
+        return null;
     }
 }
