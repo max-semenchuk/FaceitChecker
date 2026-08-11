@@ -1,0 +1,25 @@
+trigger: none
+
+resources:
+  pipelines:
+    - pipeline: ci
+      source: "CI Pipeline"
+      trigger:
+        branches:
+          include:
+            - develop
+
+pool:
+  vmImage: "windows-latest"
+
+steps:
+  - download: ci
+    artifact: artifacts
+
+  - task: AzureWebApp@1
+    displayName: "Deploy to Azure Web App"
+    inputs:
+      azureSubscription: "Azure subscription 1(d12ea9c3-b1d4-48ce-be16-2b2ab79b20e8)"
+      appType: "webApp"
+      appName: "FaceitCheckerWebApp"
+      package: "$(Pipeline.Workspace)/ci/artifacts/*.zip"

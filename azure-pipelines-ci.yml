@@ -1,0 +1,37 @@
+trigger:
+  - develop
+
+pool:
+  vmImage: windows-latest
+
+steps:
+  - task: UseDotNet@2
+    displayName: "Install .NET SDK from global.json"
+    inputs:
+      packageType: "sdk"
+      useGlobalJson: true
+
+  - task: DotNetCoreCLI@2
+    displayName: "Dotnet Restore"
+    inputs:
+      command: "restore"
+
+  - task: DotNetCoreCLI@2
+    displayName: "Dotnet Build"
+    inputs:
+      command: "build"
+      arguments: "--no-restore"
+
+  - task: DotNetCoreCLI@2
+    displayName: "Dotnet Publish"
+    inputs:
+      command: "publish"
+      arguments: "--output $(Build.ArtifactStagingDirectory)/api"
+      zipAfterPublish: true
+
+  - task: PublishBuildArtifacts@1
+    displayName: "Save Artifacts"
+    inputs:
+      PathtoPublish: "$(Build.ArtifactStagingDirectory)/api"
+      ArtifactName: "artifacts"
+      publishLocation: "Container"
