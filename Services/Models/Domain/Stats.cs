@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Services.Models.Domain;
+﻿namespace Services.Models.Domain;
 
 public class Stats
 {
@@ -12,5 +8,5 @@ public class Stats
 
     public object Items { get; set; }
 
-    public int To {  get; set; }
+    public int To { get; set; }
 }

@@ -15,18 +15,18 @@ namespace FaceitChecker.Controllers
             _faceitApiClient = faceitApiClient;
         }
 
-        
+
         [HttpGet]
         [Route("profile")]
-        public async Task<IActionResult>  GetPlayerProfile(string name)
+        public async Task<IActionResult> GetPlayerProfile(string name)
         {
             var response = await _faceitApiClient.RequestPlayerProfile(name);
 
-            if (response == null) 
+            if (response == null)
             {
                 return NotFound();
             }
-            
+
             return Ok(response);
         }
 
@@ -35,8 +35,8 @@ namespace FaceitChecker.Controllers
         public async Task<IActionResult> GetPlayerStats(string player_id, string game)
         {
             var response = await _faceitApiClient.RequestPlayerStats(player_id, game);
-            
-            if (response == null) 
+
+            if (response == null)
             {
                 return NotFound();
             }

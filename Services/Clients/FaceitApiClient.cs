@@ -1,8 +1,6 @@
-﻿using FaceitChecker.Models;
-using FaceitChecker.Models.Domain;
+﻿using FaceitChecker.Models.Domain;
 using Microsoft.Extensions.Configuration;
 using Services.Models.Domain;
-using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -18,27 +16,27 @@ public class FaceitApiClient : IFaceitApiClient
         httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {configuration["FaceitApiKey"]}");
     }
 
-    public async Task<Player?> RequestPlayerProfile(string Name)
+    public async Task<Player> RequestPlayerProfile(string Name)
     {
         var response = await httpClient.GetAsync($"https://open.faceit.com/data/v4/players?nickname={Name}");
 
         if (!response.IsSuccessStatusCode)
-        { 
-            return null; 
+        {
+            return null;
         }
 
         return await response.Content.ReadFromJsonAsync<Player>();
     }
 
-    public async Task<Stats?> RequestPlayerStats(string PlayerId, string Game)
+    public async Task<Stats> RequestPlayerStats(string PlayerId, string Game)
     {
         var response = await httpClient.GetAsync($"https://open.faceit.com/data/v4/players/{PlayerId}/games/{Game}/stats");
 
-        if (!response.IsSuccessStatusCode) 
+        if (!response.IsSuccessStatusCode)
         {
-            return null;    
+            return null;
         }
-        
+
         return await response.Content.ReadFromJsonAsync<Stats>();
     }
 }

@@ -4,7 +4,8 @@ namespace FaceitChecker.Models.Domain
 {
     public class Player
     {
-        public string player_id {  get; set; }
+        public string player_id { get; set; }
+
         public string Nickname { get; set; } = string.Empty;
 
         public float Rating { get; set; }
